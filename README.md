@@ -6,36 +6,37 @@
 |------|----|-------|
 |email|string|null: false|
 |password|string|null: false|
-|username|string|null: false|
+|name|string|null: false,index: true|
 ### Association
+- has_many :groups, through: :users_groups
 - has_many :messages
-- has_many :comments
+- has_many :users_groups
+
+## users_groupsテーブル
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+### Association
+- belongs_to :group
+- belongs_to :user
 
 ## massagesテーブル
 |Column|Type|Options|
 |------|----|-------|
-|image|text||
-|text|text|null: false|
+|image|string||
+|body|text|null: false|
 |user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
 ### Association
 - belongs_to :user
-- belongs_to :groups
+- belongs_to :group
 
 ## groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
+|name|string|null: false|
 ### Association
-- belongs_to :messages
-- belongs_to :comments
-
-## commentsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|text|text|null: false|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
-### Association
-- belongs_to :groups
-- belongs_to :user
+- has_many :messages
+- has_many :users_groups
+- has_many :users, through: :users_groups
