@@ -25,7 +25,7 @@
 |Column|Type|Options|
 |------|----|-------|
 |image|string||
-|body|text|null: false|
+|body|text||
 |user_id|integer|null: false, foreign_key: true|
 |group_id|integer|null: false, foreign_key: true|
 ### Association
